@@ -76,7 +76,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+    enableHermes: false,  // clean and rebuild if changing
 ]
 project.ext.vectoricons = [
     iconFontNames: [ 'MaterialCommunityIcons.ttf', 'Ionicons.ttf' ]
@@ -142,6 +142,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     splits {
         abi {
             reset()

@@ -1,6 +1,6 @@
 {
-  "name": "react-native-vision-camera",
-  "version": "2.15.4",
+  "name": "react-native-appota-ai-camera",
+  "version": "2.15.5",
   "description": "The Camera library that sees the vision.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -58,13 +58,13 @@
     "qr-code",
     "scanner"
   ],
-  "repository": "https://github.com/mrousavy/react-native-vision-camera",
+  "repository": "https://github.com/bimemto/react-native-vision-camera",
   "author": "Marc Rousavy <marcrousavy@hotmail.com> (https://github.com/mrousavy)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mrousavy/react-native-vision-camera/issues"
   },
-  "homepage": "https://mrousavy.github.io/react-native-vision-camera/",
+  "homepage": "https://github.com/bimemto/react-native-vision-camera",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
