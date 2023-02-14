@@ -1,31 +1,31 @@
+import { useIsFocused } from '@react-navigation/core';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { useRef, useState, useMemo, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { PinchGestureHandler, PinchGestureHandlerGestureEvent, TapGestureHandler } from 'react-native-gesture-handler';
+import { PressableOpacity } from 'react-native-pressable-opacity';
+import Reanimated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
+  Camera,
   CameraDeviceFormat,
   CameraRuntimeError,
   FrameProcessorPerformanceSuggestion,
+  frameRateIncluded,
   PhotoFile,
   sortFormats,
   useCameraDevices,
   useFrameProcessor,
-  VideoFile,
+  VideoFile
 } from 'react-native-vision-camera';
-import { Camera, frameRateIncluded } from 'react-native-vision-camera';
 import { CONTENT_SPACING, MAX_ZOOM_FACTOR, SAFE_AREA_PADDING } from './Constants';
-import Reanimated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
-import { useEffect } from 'react';
-import { useIsForeground } from './hooks/useIsForeground';
-import { StatusBarBlurBackground } from './views/StatusBarBlurBackground';
-import { CaptureButton } from './views/CaptureButton';
-import { PressableOpacity } from 'react-native-pressable-opacity';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IonIcon from 'react-native-vector-icons/Ionicons';
 import { examplePlugin } from './frame-processors/ExamplePlugin';
+import { useIsForeground } from './hooks/useIsForeground';
 import type { Routes } from './Routes';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useIsFocused } from '@react-navigation/core';
+import { CaptureButton } from './views/CaptureButton';
+import { StatusBarBlurBackground } from './views/StatusBarBlurBackground';
 
 const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 Reanimated.addWhitelistedNativeProps({
@@ -48,7 +48,7 @@ export function CameraPage({ navigation }: Props): React.ReactElement {
   const isForeground = useIsForeground();
   const isActive = isFocussed && isForeground;
 
-  const [cameraPosition, setCameraPosition] = useState<'front' | 'back'>('back');
+  const [cameraPosition, setCameraPosition] = useState<'front' | 'back'>('front');
   const [enableHdr, setEnableHdr] = useState(false);
   const [flash, setFlash] = useState<'off' | 'on'>('off');
   const [enableNightMode, setEnableNightMode] = useState(false);

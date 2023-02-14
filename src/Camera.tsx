@@ -1,9 +1,9 @@
 import React from 'react';
-import { requireNativeComponent, NativeModules, NativeSyntheticEvent, findNodeHandle, NativeMethods, Platform } from 'react-native';
+import { findNodeHandle, NativeMethods, NativeModules, NativeSyntheticEvent, Platform, requireNativeComponent } from 'react-native';
 import type { FrameProcessorPerformanceSuggestion, VideoFileType } from '.';
 import type { CameraDevice } from './CameraDevice';
 import type { ErrorWithCause } from './CameraError';
-import { CameraCaptureError, CameraRuntimeError, tryParseNativeCameraError, isErrorWithCause } from './CameraError';
+import { CameraCaptureError, CameraRuntimeError, isErrorWithCause, tryParseNativeCameraError } from './CameraError';
 import type { CameraProps } from './CameraProps';
 import type { Frame } from './Frame';
 import type { PhotoFile, TakePhotoOptions } from './PhotoFile';

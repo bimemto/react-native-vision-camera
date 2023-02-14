@@ -297,13 +297,6 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
         0
       )
     }
-    constraintSet.connect(
-      previewView.id,
-      ConstraintSet.RIGHT,
-      previewView.id,
-      ConstraintSet.RIGHT,
-      0
-    )
     graphicOverlay?.id?.let {
       constraintSet.connect(
         it,
@@ -331,11 +324,12 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
         0
       )
     }
-    constraintSet.applyTo(this@CameraView)
 
-    var addFaceButton: Button = Button(context)
-    addFaceButton.layoutParams = LayoutParams(300, 150)
+    var addFaceButton = Button(context)
+    var lp = LayoutParams(300, 150);
+    addFaceButton.layoutParams = lp;
     addFaceButton.text = "Add Face";
+    addFaceButton.id = generateViewId()
     addFaceButton.setOnClickListener {
       val dialog = Dialog(context)
       dialog.requestWindowFeature(1)
@@ -344,8 +338,6 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
       dialog.window!!.setLayout(-1, -2)
       dialog.setCanceledOnTouchOutside(false)
       dialog.setCancelable(false)
-      Toast.makeText(context, imageProcessor?.faceDetectedEmbedding.toString(), Toast.LENGTH_LONG)
-        .show()
       //val faceEmbedding: FloatArray? = faceDetectedEmbedding
       val mName = dialog.findViewById<EditText>(R.id.nameInput)
       val add_face_preview = dialog.findViewById<ImageView>(R.id.faceAddImageView)
@@ -366,6 +358,52 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
     }
 
     addView(addFaceButton)
+
+//    addFaceButton.id.let {
+//      constraintSet.connect(
+//        it,
+//        ConstraintSet.END,
+//        previewView.id,
+//        ConstraintSet.END,
+//        50
+//      )
+//    }
+//
+//    addFaceButton.id.let {
+//      constraintSet.connect(
+//        it,
+//        ConstraintSet.TOP,
+//        previewView.id,
+//        ConstraintSet.TOP,
+//      )
+//    }
+
+//    addFaceButton.id.let {
+//      constraintSet.connect(
+//        it,
+//        ConstraintSet.BOTTOM,
+//        previewView.id,
+//        ConstraintSet.BOTTOM,
+//      )
+//    }
+//
+//    addFaceButton.id.let {
+//      constraintSet.connect(
+//        it,
+//        ConstraintSet.START,
+//        previewView.id,
+//        ConstraintSet.START,
+//      )
+//    }
+
+//    addFaceButton.id.let {
+//      constraintSet.setHorizontalBias(it, 1f)
+//    }
+//    addFaceButton.id.let {
+//      constraintSet.setVerticalBias(it, 0.5f)
+//    }
+
+    constraintSet.applyTo(this@CameraView)
 
     scaleGestureListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
       override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -527,11 +565,6 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
         imageProcessor = FaceDetectorProcessor(context)
       } catch (e: Exception) {
         Log.e(TAG, "Can not create face detect processor")
-        Toast.makeText(
-          context,
-          "Can not create face processor: " + e.localizedMessage,
-          Toast.LENGTH_LONG
-        ).show()
       }
       //Load Face Recognition Model
       try {
@@ -789,8 +822,6 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
               TAG,
               "Failed to process image. Error: " + e.localizedMessage
             )
-            Toast.makeText(context, e.localizedMessage, Toast.LENGTH_SHORT)
-              .show()
           }
         }
       }
@@ -798,11 +829,6 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
 
       preview = previewBuilder.build()
       Log.i(TAG, "Attaching ${useCases[0].name} use-cases...")
-      Toast.makeText(
-        graphicOverlay!!.context,
-        "Attaching ${useCases[0].name} use-cases...",
-        Toast.LENGTH_SHORT
-      ).show()
       camera =
         cameraProvider.bindToLifecycle(this, cameraSelector, preview, *useCases.toTypedArray())
       preview!!.setSurfaceProvider(previewView.surfaceProvider)
